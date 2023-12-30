@@ -38,7 +38,7 @@ function ProductInfo({
         </Badge>
 
         <Badge className="rounded" variant={"outline"}>
-          <img src={luminous} alt="luminous" />
+          <img src={luminous} alt="luminous" className="object-contain" />
         </Badge>
       </div>
 

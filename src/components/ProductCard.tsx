@@ -5,8 +5,15 @@ import "react-image-gallery/styles/css/image-gallery.css";
 import PriceInfo from "./PriceInfo";
 import ProductInfo from "./ProductInfo";
 import { Button } from "./ui/button";
+import Zoom from "react-medium-image-zoom";
+import "react-medium-image-zoom/dist/styles.css";
+import { useState } from "react";
+import { cn } from "@/lib/utils";
+import { Link } from "react-router-dom";
 
 function ProductCard({ product }: { product: Product }) {
+  const [activeImage, setActiveImage] = useState(0);
+
   const images: ReactImageGalleryItem[] = Array.from({ length: 4 }, (_, i) => ({
     original: product.image,
     originalAlt: product.title,
@@ -14,7 +21,12 @@ function ProductCard({ product }: { product: Product }) {
     thumbnailAlt: product.title,
     renderThumbInner(item) {
       return (
-        <div className="bg-[#F8F9FA] mt-12 border border-[#E59D97] rounded-[12px] w-20 h-20 flex items-center justify-center">
+        <div
+          className={cn(
+            "bg-[#F8F9FA] mt-12 border rounded-[12px] w-20 h-20 flex items-center justify-center transition-all duration-200",
+            activeImage === i ? "border-[#E59D97]" : "border-transparent"
+          )}
+        >
           <img
             src={item.thumbnail}
             alt={item.thumbnailAlt}
@@ -30,14 +42,18 @@ function ProductCard({ product }: { product: Product }) {
       <CardContent className="p-10 flex gap-x-7">
         <div className="flex-1 relative">
           <ImageGallery
+            startIndex={activeImage}
+            onSlide={(index) => setActiveImage(index)}
             items={images}
             renderItem={(item) => (
               <div className="bg-[#F8F9FA] px-8 py-8 rounded-[20px]">
-                <img
-                  src={item.original}
-                  alt={item.originalAlt}
-                  className="w-full max-w-sm h-72 object-contain"
-                />
+                <Zoom>
+                  <img
+                    src={item.original}
+                    alt={item.originalAlt}
+                    className="w-full max-w-sm h-72 object-contain"
+                  />
+                </Zoom>
               </div>
             )}
             showNav={false}
@@ -57,8 +73,11 @@ function ProductCard({ product }: { product: Product }) {
           />
           <PriceInfo price={product.price} />
 
-          <Button className="bg-[#C62A1C] hover:bg-[#C62A1C]/90 rounded-[12px] py-5 mt-auto">
-            Buy now
+          <Button
+            asChild
+            className="bg-[#C62A1C] hover:bg-[#C62A1C]/90 transition rounded-[12px] py-5 mt-auto"
+          >
+            <Link to={`/products/${product.id}`}>Buy now</Link>
           </Button>
         </div>
       </CardContent>

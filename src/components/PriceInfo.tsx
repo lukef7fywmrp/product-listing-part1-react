@@ -4,6 +4,12 @@ import amazon from "@/assets/logos/amazon.svg";
 import noon from "@/assets/logos/noon.svg";
 import whatsapp from "@/assets/logos/whatsapp.svg";
 import microless from "@/assets/logos/microless.svg";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "./ui/tooltip";
 
 const logos = [
   {
@@ -19,7 +25,7 @@ const logos = [
   {
     id: "3",
     image: microless,
-    alt: "test",
+    alt: "microless",
   },
   {
     id: "4",
@@ -46,14 +52,22 @@ function PriceInfo({ price }: { price: number }) {
         <p className="text-[#9098A5] text-xs">Also available on</p>
         <div className="gap-3 flex items-center">
           {logos.map((logo) => (
-            <Button
-              key={logo.id}
-              variant={"secondary"}
-              size={"icon"}
-              className="h-10 w-20"
-            >
-              <img src={logo.image} alt={logo.alt} />
-            </Button>
+            <TooltipProvider key={logo.id}>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    variant={"secondary"}
+                    size={"icon"}
+                    className="h-10 w-20"
+                  >
+                    <img src={logo.image} alt={logo.alt} />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent className="capitalize">
+                  {logo.alt}
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           ))}
         </div>
       </div>
