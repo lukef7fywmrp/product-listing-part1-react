@@ -23,8 +23,6 @@ const productSpecs = [
 
 function ProductInfo({
   title,
-  description,
-  category,
 }: {
   title: string;
   description: string;
