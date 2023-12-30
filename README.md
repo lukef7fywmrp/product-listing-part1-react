@@ -34,11 +34,7 @@
 - [🚀 Getting Started](#-getting-started)
   - [🔧 Installation](#-installation)
   - [🤖 Running product-listing-part1-react](#-running-product-listing-part1-react)
-  - [🧪 Tests](#-tests)
-- [🛣 Roadmap](#-roadmap)
-- [🤝 Contributing](#-contributing)
 - [📄 License](#-license)
-- [👏 Acknowledgments](#-acknowledgments)
 
 ---
 
